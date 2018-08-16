@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 		{
 			double tickCount[10000];
 			bool listo = false;
-			for (int n = 1; !listo; n++)
+			for (int n = 1; !listo ; n++)
 			{
 				for (int i = 0; i < 1000; i++)
 				{
@@ -34,7 +34,9 @@ int main(int argc, char *argv[])
 				tickCount[n - 1] /= 1000.0;
 				drawHistogram(tickCount[n - 1], n);
 				if (n > 1)
+				{
 					listo = (abs(tickCount[n - 2] - tickCount[n - 1]) <= .1);
+				}
 			}
 		}
 	}

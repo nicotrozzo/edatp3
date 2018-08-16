@@ -6,7 +6,9 @@ Simulation::Simulation(uint nRobots, string modo, uint w, uint h) :p(h, w), d()
 	robotCount = nRobots;
 	mode = modo;
 	for (int i = 0; i < nRobots; i++)
+	{
 		robots[i].initRobots(h, w);
+	}
 	tickCount = 0;
 	err.errNum = NO_ERROR;
 }
@@ -28,12 +30,17 @@ errorType Simulation::getError()
 
 uint Simulation::simulate()
 {
-
+	
 }
 
 void Simulation::step()
 {
-
+	for (int i = 0; i < robotCount; i++)
+	{
+		robots[i].moveRobot(p.getHeight(), p.getWidth());
+		p.cleanTile(robots[i].getRobotPos());
+	}
+	tickCount++;
 }
 
 void Simulation::destroy()
