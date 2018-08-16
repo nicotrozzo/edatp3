@@ -43,7 +43,9 @@ bool Piso::isFloorClean()
 {
 	bool ret = LIMPIO;
 	for (int i = 0; (i < Hcount*Wcount) && !ret; i++)
+	{
 		ret = baldosas[i];
+	}
 	return ret;
 }
 
