@@ -1,8 +1,4 @@
 #include "Robot.h"
-#include <cstdlib>
-#include <time.h>
-#define _USE_MATH_DEFINES
-#include <math.h>
 
 void Robot::initRobot(uint h, uint w)
 {
@@ -31,3 +27,7 @@ tpos Robot::getRobotPos()
 	return pos;
 }
 
+double Robot::getAngle()
+{
+	return dir;
+}

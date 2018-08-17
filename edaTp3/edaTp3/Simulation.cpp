@@ -1,19 +1,34 @@
 #include "Simulation.h"
-#include <allegro5/allegro.h>
 
 #define REST .03
 
-Simulation::Simulation(uint nRobots, string modo, uint w, uint h) :p(h, w), d(h,w,nRobots)
+Simulation::Simulation(uint nRobots, string mod, uint w, uint h) :p(h, w), d(h,w,nRobots)
 {
 	robots = new Robot[nRobots];
 	robotCount = nRobots;
-	mode = modo;
+	mode = mod;
 	for (int i = 0; i < nRobots; i++)
 	{
-		robots[i].initRobots(h, w);
+		robots[i].initRobot(h, w);
 	}
 	tickCount = 0;
 	err.errNum = NO_ERROR;
+	if (mode == "Mode 1")	//dibuja el estado inicial
+	{
+		for (int i = 0; i < p.getWidth(); i++)
+		{
+			for (int j = 0; j < p.getHeight(); j++)
+			{
+				d.drawTile(i, j, p.isDirty(i, j));
+			}
+		}
+		for (int i = 0; i < robotCount; i++)
+		{
+			d.drawRobot(robots[i].getRobotPos(),robots[i].getAngle());	//si pinta mandamos angulo para rotar
+		}
+		al_flip_display();
+		al_rest(REST);
+	}
 }
 
 string Simulation::getMode()
@@ -35,18 +50,24 @@ uint Simulation::simulate()
 {
 	while (!p.isFloorClean())
 	{
+		step();
 		if (mode == "Mode 1")	//si esta en el modo 1, dibuja la situacion
 		{
-			al_rest(REST);
-			for (int i = 0; i < robotCount; i++)
+			for (int i = 0 ; i < p.getWidth(); i++)	//dibuja todas las baldosas
 			{
-				d.draw(robots[i].getRobotPos());
+				for (int j = 0; j < p.getHeight(); j++)
+				{
+					d.drawTile(i,j,p.isDirty(i,j));
+				}
 			}
+			for (int i = 0; i < robotCount; i++)	//dibuja todos los robots
+			{
+				d.drawRobot(robots[i].getRobotPos());	//si pinta mandamos angulo para rotar
+			}
+			al_flip_display();
+			al_rest(REST);
 		}
-		step();
-		d.draw(mode,)
 	}
-
 	return tickCount;
 }
 

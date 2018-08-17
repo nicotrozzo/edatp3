@@ -1,13 +1,11 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
-typedef struct
-{
-	double x;
-	double y;
-}tpos;
-
-typedef unsigned int uint;
+#include <cstdlib>
+#include <time.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include "typedef.h"
 
 class Robot
 {
@@ -17,6 +15,7 @@ public:
 	void initRobot(uint h, uint w);
 	void moveRobot(uint Hcount, uint Wcount);
 	tpos getRobotPos();
+	double getAngle();
 };
 
 #endif

@@ -6,7 +6,7 @@ typedef struct
 	uint W;
 	uint H;
 	string Mode;
-};
+}tpos;
 
 int main(int argc, char *argv[])
 {
