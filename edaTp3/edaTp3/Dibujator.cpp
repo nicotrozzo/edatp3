@@ -12,7 +12,6 @@ Dibujator::Dibujator(uint h, uint w, uint nRobots)
 	//inicializar allegro
 	setUnit();
 	display = al_create_display(w*unidad, h*unidad);
-
 }
 
 /*Define el tamaño de cada lado en funcion del ancho y el alto*/

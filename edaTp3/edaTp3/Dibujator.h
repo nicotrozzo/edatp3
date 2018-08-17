@@ -1,3 +1,12 @@
+#ifndef DIBUJATOR_H
+#define DIBUJATOR_H
+
+typedef struct
+{
+	double x;
+	double y;
+}tpos;
+
 typedef unsigned int uint;
 
 class Dibujator
@@ -13,3 +22,4 @@ public:
 	draw(tpos pos);
 };
 
+#endif
