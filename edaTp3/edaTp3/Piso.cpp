@@ -1,7 +1,9 @@
 #include "Piso.h"
 #include "Robot.h"
-#include <cstdlib>
-#include <math.h>
+
+#define LIMPIO false
+#define SUCIO true
+
 
 Piso::Piso(uint h, uint w)
 {
@@ -65,4 +67,14 @@ void Piso::cleanTile(tpos pos)
 void Piso::destroy()
 {
 	free(baldosas);
+}
+
+bool Piso::isDirty(uint x, uint y)
+{
+	return baldosas[y*Wcount + x];
+}
+
+errorType Piso::getError()
+{
+	return err;
 }

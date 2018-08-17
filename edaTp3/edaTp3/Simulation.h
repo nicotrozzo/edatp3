@@ -2,10 +2,11 @@
 #define SIMULATION_H
 
 #include <iostream>
+#include <allegro5/allegro.h>
+#include "typedef.h"
 #include "Piso.h"
 #include "Robot.h"
-
-typedef unsigned int uint;
+#include "Dibujator.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ class Simulation
 	errorType err;
 	void step();
 public:
-	Simulation(uint nRobotos, string modo, uint w, uint h);
+	Simulation(uint nRobotos, string mod, uint w, uint h);
 	string getMode();
 	uint simulate();
 	uint getTickCount();
@@ -29,4 +30,3 @@ public:
 };
 
 #endif
-

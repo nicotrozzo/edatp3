@@ -2,19 +2,11 @@
 #define PISO_H
 
 #include <iostream>
+#include <allegro5/allegro.h>
+#include <cstdlib>
+#include <math.h>
+#include "typedef.h"
 
-#define LIMPIO false
-#define SUCIO true
-
-typedef enum { NO_ERROR, NO_MEMORY }err;
-
-typedef struct
-{
-	string detail;
-	err errNum;
-}errorType;
-
-typedef unsigned int uint;
 
 using namespace std;
 
@@ -28,7 +20,7 @@ public:
 	Piso(uint h, uint w);
 	uint getHeight();
 	uint getWidth();
-	bool isDirty();
+	bool isDirty(uint x, uint y);
 	bool isFloorClean();
 	void cleanTile(uint x, uint y);
 	void cleanTile(tpos pos);
