@@ -5,6 +5,7 @@
 #define UNIDAD3 15
 #define LIMPIO false
 #define SUCIO true
+#define SCALE 0.5
 
 Dibujator::Dibujator(uint h, uint w, uint nRobots)
 {
@@ -51,5 +52,5 @@ void Dibujator::drawTile(double x, double y, bool state)
 
 void Dibujator::drawRobot(tpos pos,double angle)
 {
-	al_draw_scaled_rotated_bitmap(robot, 0, 0, );
+	al_draw_scaled_rotated_bitmap(robot, 0, 0, pos.x * unidad, pos.y * unidad, SCALE, SCALE, angle, 0);
 }

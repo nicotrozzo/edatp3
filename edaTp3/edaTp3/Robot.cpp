@@ -27,7 +27,7 @@ tpos Robot::getRobotPos()
 	return pos;
 }
 
-tpos Robot::getAngle()
+double Robot::getAngle()
 {
 	return dir;
 }

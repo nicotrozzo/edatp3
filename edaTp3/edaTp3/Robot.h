@@ -15,7 +15,7 @@ public:
 	void initRobot(uint h, uint w);
 	void moveRobot(uint Hcount, uint Wcount);
 	tpos getRobotPos();
-	tpos getAngle();
+	double getAngle();
 };
 
 #endif
