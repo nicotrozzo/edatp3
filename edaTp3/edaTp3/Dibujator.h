@@ -4,7 +4,6 @@
 #include <allegro5/allegro.h>
 #include "typedef.h"
 
-
 class Dibujator
 {
 	uint Hcount;
@@ -16,12 +15,14 @@ class Dibujator
 	ALLEGRO_BITMAP *robot;
 	uint unidad;				//pixeles de cada lado de baldosas
 	void setUnit();
-
+	errType error;
+	void initializeAllegro();
 public:
 	Dibujator(uint h, uint w, uint nRobots);
 	void draw(tpos pos);
 	void drawTile(double x, double y, bool state);
 	void drawRobot(tpos pos, double angle);
+	void destroy();
 };
 
 #endif

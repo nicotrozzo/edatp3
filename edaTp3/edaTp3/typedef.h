@@ -5,7 +5,7 @@
 
 typedef unsigned int uint;
 
-typedef enum { NO_ERROR, NO_MEMORY }tErr;
+typedef enum { NO_ERROR, NO_MEMORY , BITMAP_ERR , DISPLAY_ERR }tErr;
 
 typedef struct
 {
