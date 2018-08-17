@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Piso.h"
 #include "Robot.h"
+#include "Dibujator.h"
 
 typedef unsigned int uint;
 
