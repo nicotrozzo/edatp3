@@ -6,7 +6,8 @@
 #include "typedef.h"
 #include "Piso.h"
 #include "Robot.h"
-#include "Dibujator.h"
+
+typedef unsigned int uint;
 
 using namespace std;
 
