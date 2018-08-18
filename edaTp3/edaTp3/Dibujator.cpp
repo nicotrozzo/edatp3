@@ -23,7 +23,7 @@ Dibujator::Dibujator(uint h, uint w, uint nRobots)
 void Dibujator::initializeAllegro()
 {
 	baldosaLimpia = al_load_bitmap("baldosa_limpia.png");
-	if(baldosaLimpia != NULL)
+	if (baldosaLimpia != NULL)
 	{
 		baldosaSucia = al_load_bitmap("baldosa_sucia.png");
 		if (baldosaSucia != NULL)
@@ -31,7 +31,7 @@ void Dibujator::initializeAllegro()
 			robot = al_load_bitmap("robot.png");
 			if (robot != NULL)
 			{
-				display = al_create_display(w*unidad, h*unidad);
+				display = al_create_display(Wcount*unidad, Hcount*unidad);
 				if (display != NULL)
 				{
 					error.errNum = NO_ERROR;
@@ -59,12 +59,14 @@ void Dibujator::initializeAllegro()
 			error.errNum = BITMAP_ERR;
 			cout << "Error al cargar baldosa_sucia.png" << endl;
 		}
+	}
 	else
 	{
 		error.errNum = BITMAP_ERR;
 		cout << "Error al cargar baldosa_limpia.png" << endl;
 	}
 }
+
 /*Define el tamaño de cada lado en funcion del ancho y el alto*/
 void Dibujator::setUnit()
 {
@@ -84,7 +86,7 @@ void Dibujator::setUnit()
 
 void Dibujator::drawTile(double x, double y, bool state)
 {
-	if (state == true)
+	if (state == SUCIO)
 	{
 		al_draw_scaled_bitmap( baldosaSucia, 0, 0, al_get_bitmap_width(baldosaSucia), al_get_bitmap_height(baldosaSucia), x * unidad, y * unidad, unidad, unidad, 0);
 	}
@@ -96,7 +98,9 @@ void Dibujator::drawTile(double x, double y, bool state)
 
 void Dibujator::drawRobot(tpos pos,double angle)
 {
-	al_draw_scaled_rotated_bitmap(robot, 0, 0, pos.x * unidad, pos.y * unidad, SCALE, SCALE, angle, 0);
+	float xscale = unidad/(float)al_get_bitmap_width(robot);
+	float yscale = unidad/(float)al_get_bitmap_height(robot);
+	al_draw_scaled_rotated_bitmap(robot, 0, 0, pos.x * unidad, pos.y * unidad, xscale, yscale, angle, 0);
 }
 
 void Dibujator::destroy()

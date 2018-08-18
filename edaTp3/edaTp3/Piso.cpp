@@ -1,10 +1,6 @@
 #include "Piso.h"
 #include "Robot.h"
 
-#define LIMPIO false
-#define SUCIO true
-
-
 Piso::Piso(uint h, uint w)
 {
 	Hcount = h;
