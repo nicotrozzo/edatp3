@@ -8,9 +8,6 @@
 #include "Robot.h"
 #include "Dibujator.h"
 
-
-using namespace std;
-
 class Simulation
 {
 	uint tickCount;

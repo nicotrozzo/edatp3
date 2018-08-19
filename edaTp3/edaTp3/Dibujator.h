@@ -15,13 +15,14 @@ class Dibujator
 	ALLEGRO_BITMAP *robot;
 	uint unidad;				//pixeles de cada lado de baldosas
 	void setUnit();
-	errType error;
+	errorType error;
 	void initializeAllegro();
 public:
-	Dibujator(uint h, uint w, uint nRobots);
+	Dibujator(uint h, uint w, uint nRobots, string mode);
 	void draw(tpos pos);
 	void drawTile(double x, double y, bool state);
 	void drawRobot(tpos pos, double angle);
+	errorType getError();
 	void destroy();
 };
 

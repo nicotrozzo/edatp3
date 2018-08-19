@@ -8,7 +8,7 @@ Piso::Piso(uint h, uint w)
 	baldosas = (bool*)malloc(h*w * sizeof(bool));
 	if (baldosas != NULL)
 	{
-		for (int i = 0; i < h*w; h++)
+		for (uint i = 0; i < h*w; h++)
 		{
 			baldosas[i] = SUCIO;
 		}
@@ -39,12 +39,12 @@ bool Piso::isDirty(uint x, uint y)
 
 bool Piso::isFloorClean()
 {
-	bool ret = LIMPIO;
-	for (int i = 0; (i < Hcount*Wcount) && !ret; i++)
+	bool ret = 0;
+	for (uint i = 0; (i < Hcount*Wcount) && !ret; i++)
 	{
 		ret = baldosas[i];
 	}
-	return ret;
+	return !ret;	//devuelve 1 si esta todo limpio
 }
 
 void Piso::cleanTile(uint x, uint y)
@@ -63,11 +63,6 @@ void Piso::cleanTile(tpos pos)
 void Piso::destroy()
 {
 	free(baldosas);
-}
-
-bool Piso::isDirty(uint x, uint y)
-{
-	return baldosas[y*Wcount + x];
 }
 
 errorType Piso::getError()

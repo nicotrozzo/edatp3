@@ -1,33 +1,54 @@
+#include <string>
 #include "Simulation.h"
 
-#define REST .03
+#define REST .3
 
-Simulation::Simulation(uint nRobots, string mod, uint w, uint h) :p(h, w), d(h,w,nRobots)
+Simulation::Simulation(uint nRobots, string mod, uint w, uint h) :p(h, w), d(h,w,nRobots,mod)
 {
 	robots = new Robot[nRobots];
 	robotCount = nRobots;
 	mode = mod;
-	for (int i = 0; i < nRobots; i++)
+	for (uint i = 0; i < nRobots; i++)
 	{
 		robots[i].initRobot(h, w);
 	}
 	tickCount = 0;
 	err.errNum = NO_ERROR;
-	if (mode == "Mode 1")	//dibuja el estado inicial
+	if( ((d.getError()).errNum == NO_ERROR) && ((p.getError()).errNum == NO_ERROR) )
 	{
-		for (int i = 0; i < p.getWidth(); i++)
+		if (mode == "Mode 1")	//dibuja el estado inicial
 		{
-			for (int j = 0; j < p.getHeight(); j++)
+			al_clear_to_color(al_map_rgb(0, 0, 0)); //display arranca en negro
+			for (uint i = 0; i < p.getWidth(); i++)
 			{
-				d.drawTile(i, j, p.isDirty(i, j));
+				for (uint j = 0; j < p.getHeight(); j++)
+				{
+					d.drawTile(i, j, p.isDirty(i, j));
+	al_flip_display();
+				}
 			}
+			for (uint i = 0; i < robotCount; i++)
+			{
+				d.drawRobot(robots[i].getRobotPos(), robots[i].getAngle());	//si pinta mandamos angulo para rotar
+			}
+			al_flip_display();
+			al_rest(REST);
 		}
-		for (int i = 0; i < robotCount; i++)
+	}
+	else
+	{
+		if ((d.getError()).errNum != NO_ERROR)
 		{
-			d.drawRobot(robots[i].getRobotPos(),robots[i].getAngle());	//si pinta mandamos angulo para rotar
+			cout << ((d.getError()).detail);
 		}
-		al_flip_display();
-		al_rest(REST);
+		else
+		{
+			cout << ((p.getError()).detail);
+		}
+		cout << "Simulacion terminada por error\n";
+		d.destroy();
+		p.destroy();
+		destroy();
 	}
 }
 
@@ -53,16 +74,16 @@ uint Simulation::simulate()
 		step();
 		if (mode == "Mode 1")	//si esta en el modo 1, dibuja la situacion
 		{
-			for (int i = 0 ; i < p.getWidth(); i++)	//dibuja todas las baldosas
+			for (uint i = 0 ; i < p.getWidth(); i++)	//dibuja todas las baldosas
 			{
-				for (int j = 0; j < p.getHeight(); j++)
+				for (uint j = 0; j < p.getHeight(); j++)
 				{
 					d.drawTile(i,j,p.isDirty(i,j));
 				}
 			}
-			for (int i = 0; i < robotCount; i++)	//dibuja todos los robots
+			for (uint i = 0; i < robotCount; i++)	//dibuja todos los robots
 			{
-				d.drawRobot(robots[i].getRobotPos());	//si pinta mandamos angulo para rotar
+				d.drawRobot(robots[i].getRobotPos(),robots[i].getAngle());	//si pinta mandamos angulo para rotar
 			}
 			al_flip_display();
 			al_rest(REST);
@@ -73,7 +94,7 @@ uint Simulation::simulate()
 
 void Simulation::step()
 {
-	for (int i = 0; i < robotCount; i++)
+	for (uint i = 0; i < robotCount; i++)
 	{
 		robots[i].moveRobot(p.getHeight(), p.getWidth());
 		p.cleanTile(robots[i].getRobotPos());
@@ -83,5 +104,5 @@ void Simulation::step()
 
 void Simulation::destroy()
 {
-	delete robots[];
+	delete[] robots;
 }
