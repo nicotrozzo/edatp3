@@ -126,6 +126,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Dibujator.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="Piso.h" />
     <ClInclude Include="Robot.h" />
     <ClInclude Include="Simulation.h" />
@@ -134,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="Dibujator.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Piso.cpp" />
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Simulation.cpp" />

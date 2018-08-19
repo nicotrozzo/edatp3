@@ -22,7 +22,7 @@ class Simulation
 	errorType err;
 	void step();
 public:
-	Simulation(uint nRobotos, string mod, uint w, uint h);
+	Simulation(uint nRobotos, int mod, uint w, uint h);
 	string getMode();
 	uint simulate();
 	uint getTickCount();

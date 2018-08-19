@@ -1,21 +1,16 @@
 #include "Simulation.h"
+#include "Header.h"
 
-typedef struct
-{
-	uint n;
-	uint W;
-	uint H;
-	string Mode;
-}tpos;
 
 int main(int argc, char *argv[])
 {
+	userData user_data;
 	//parsea
-	if (parse)
+	if ((parseCmdLine(argc, argv, parseCallback, &user_data) > 0))
 	{
-		if (args.Mode == "Mode 1")
+		if (user_data.mode == 1)
 		{
-			Simulation sim(args.n, args.Mode, args.W, args.H);
+			Simulation sim(user_data.amountOfRobots, user_data.mode, user_data.width, user_data.height);
 			uint tickCount = sim.simulate();
 			display(tickCount);
 		}
@@ -27,7 +22,7 @@ int main(int argc, char *argv[])
 			{
 				for (int i = 0; i < 1000; i++)
 				{
-					Simulation sim(n, args.Mode, args.W, args.H);
+					Simulation sim(n, user_data.mode, user_data.width, user_data.height);
 					tickCount[n - 1] += sim.simulate();
 					sim.destroy();
 				}
@@ -39,5 +34,12 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
+	}
+	else
+	{
+		printf("La informacion no fue ingresada de la manera esperada.\n");
+		how_to_use();
+
+		al_rest(10.0);
 	}
 }
