@@ -7,9 +7,6 @@
 #include <math.h>
 #include "typedef.h"
 
-
-using namespace std;
-
 class Piso
 {
 	bool* baldosas;
