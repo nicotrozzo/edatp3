@@ -11,6 +11,7 @@ Simulation::Simulation(uint nRobots, uint mod, uint w, uint h) : p(h, w), d(h, w
 	for (uint i = 0; i < nRobots; i++)
 	{
 		robots[i].initRobot(h, w);
+		al_rest(1);
 	}
 	tickCount = 0;
 	err.errNum = NO_ERROR;
