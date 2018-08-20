@@ -11,19 +11,15 @@ int parseCmdLine(int argc, char *argv[], pCallback p, void * userData)
 		{
 			if (*argv[i] == '-')
 			{
-				if (p(argv[i], argv[i + 1], userData))
+				if ((result = p(argv[i], argv[i + 1], userData)) > 0)
 				{
 					result++;
 					i++;
 				}
-				else
-				{
-					result = -1;
-				}
 			}
 			else
 			{
-				result = -1;
+				result = -3;
 			}
 		}
 	}
@@ -33,22 +29,36 @@ int parseCmdLine(int argc, char *argv[], pCallback p, void * userData)
 int parseCallback( char * key, char * value, void *user_data) {
 	userData *pUserData = (userData*)user_data;
 	int result = 0;
-	if (!(strcmp(key, "-Robots")))
+	if (!(caseInsensitive(key, "-robots")))
 	{
 		pUserData->amountOfRobots = atof(value);
 		result = 1;
 	}
-	else if (!(strcmp(key, "-Height")))
+	else if (!(caseInsensitive(key, "-height")))
 	{
-		pUserData->height = atof(value);
-		result = 1;
+		if (atof(value) <= HLIMIT)
+		{
+			pUserData->height = atof(value);
+			result = 1;
+		}
+		else
+		{
+			result = -1;
+		}
 	}
-	else if (!(strcmp(key, "-Width")))
+	else if (!(caseInsensitive(key, "-width")))
 	{
-		pUserData->width = atof(value);
-		result = 1;
+		if (atof(value) <= WLIMIT)
+		{
+			pUserData->width = atof(value);
+			result = 1;
+		}
+		else
+		{
+			result = -2;
+		}
 	}
-	else if (!(strcmp(key, "-Mode")))
+	else if (!(caseInsensitive(key, "-mode")))
 	{
 		pUserData->mode = atoi(value);
 		result = 1;
@@ -56,8 +66,48 @@ int parseCallback( char * key, char * value, void *user_data) {
 	return result;
 }
 
-void how_to_use(void) {
-	cout << "ingresar de la forma: \n \t\t -Robots... - Mode... -Height... -Width... \n";
-	cout << "Si usted eligio el modo 1, las opciones son las siguientes:\n \t\t -Robots -Height -Width \n";
-	cout << "Si usted eliigio el modo 2, las opciones son las siguientes:\n \t\t -Height -Width \n";
+void how_to_use(int result) {
+	if (result == 0)
+	{
+		cout << "ingresar de la forma: \n \t\t -Robots... - Mode... -Height... -Width... \n";
+		cout << "Si usted eligio el modo 1, las opciones son las siguientes:\n \t\t -Robots -Height -Width \n";
+		cout << "Si usted eliigio el modo 2, las opciones son las siguientes:\n \t\t -Height -Width \n";
+	}
+	else if (result == -1)
+	{
+		cout << "Recuerde que la altura maxima es 100 \n";
+	}
+	else if (result == -2)
+	{
+		cout << "Recuerde que el ancho maximo es 70 \n";
+	}
+	else if (result == -3)
+	{
+		cout << "Recuerde que no puede ingresar parametros";
+	}
+}
+
+int caseInsensitive(const char * str1, const char * str2)
+{
+	char auxStr1[100];
+	char auxStr2[100];
+	strcpy_s(auxStr1, 100, str1);
+	str_to_lwr(auxStr1);
+	strcpy_s(auxStr2, 100, str2);				// Uso strcpy_s porque usando strcpy Visual me hacia saltar un error.
+	str_to_lwr(auxStr2);
+
+	return strcmp(auxStr1, auxStr2);
+}
+
+void str_to_lwr(char * str)
+{
+	int i = 0;
+	while (*(str + i) != '\0')
+	{
+		if (isupper(*(str + i)))
+		{
+			*(str + i) = tolower(*(str + i));
+		}
+		i++;
+	}
 }

@@ -17,6 +17,8 @@
 #define INIT_SEPARATION 10
 #define SCALE 2
 #define FONT_SIZE 20
+#define HLIMIT 100
+#define WLIMIT 70
 
 using namespace ::std;
 
@@ -42,9 +44,11 @@ typedef int(*pCallback) ( char *, char *, void *);
 
 int parseCmdLine(int argc, char *argv[], pCallback p, void * userData);
 int parseCallback( char * key, char * value, void *user_data);
-void how_to_use(void);
+void how_to_use(int result);
 void drawAxis(void);
 void drawHistogram(double tickCount, int n);
 bool init_allegro(alData_t *al_data);
+int caseInsensitive(const char * str1, const char * str2);
+void str_to_lwr(char * str);
 
 #endif

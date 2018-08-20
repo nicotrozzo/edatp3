@@ -13,9 +13,10 @@ int main(int argc, char *argv[])
 //	if (parse)
 	alData_t al_data;
 	userData user_data;
+	int result;
 	if (init_allegro(&al_data))
 	{
-		if ((parseCmdLine(argc, argv, parseCallback, &user_data) > 0))
+		if ((result = parseCmdLine(argc, argv, parseCallback, &user_data)) > 0)
 		{
 			if (user_data.mode == 1)
 			{
@@ -55,7 +56,7 @@ int main(int argc, char *argv[])
 		else
 		{
 			cout << "La informacion no fue ingresada de la manera esperada.\n";
-			how_to_use();
+			how_to_use(result);
 
 			al_rest(10.0);
 		}
