@@ -37,7 +37,7 @@ typedef struct {
 	int mode;
 }userData;
 
-typedef int(*pCallback) (const char *, const char *, void *);
+typedef int(*pCallback) ( char *, char *, void *);
 
 
 int parseCmdLine(int argc, char *argv[], pCallback p, void * userData);
