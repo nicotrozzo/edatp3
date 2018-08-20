@@ -1,84 +1,63 @@
-#include <iostream>
-#include <string>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_image.h>
+#include "Header.h"
 #include "Simulation.h"
+
 
 using namespace std;
 
-typedef struct
-{
-	uint n;
-	uint W;
-	uint H;
-	string Mode;
-}tArgs;
-
-typedef enum { NO_AL_ERR, AL_INIT, INIT_PRIM ,INIT_FONT, INIT_TTF , INIT_IMAGE}alError_t;
-
-typedef struct
-{
-	alError_t error;
-	string errDetail;
-}alData_t;
-
-#define DIS_X 800
-#define DIS_Y 100
-#define M2_DIS_HEIGHT 300
-#define M2_DIS_WIDTH 300
-#define INIT_SEPARATION 10
-#define SCALE 2
-#define FONT_SIZE 20
-
-bool init_allegro(alData_t *al_data);
 ALLEGRO_DISPLAY* show(uint tickCount);
-void drawAxis(void);
-void drawHistogram(double tickCount, int n);
+
 
 int main(int argc, char *argv[])
 {
 	//parsea
 //	if (parse)
-	tArgs args = { 3,10,15,"Mode 1"};
 	alData_t al_data;
+	userData user_data;
 	if (init_allegro(&al_data))
 	{
-		if (args.Mode == "Mode 1")
+		if ((parseCmdLine(argc, argv, parseCallback, &user_data) > 0))
 		{
-			Simulation sim(args.n, args.Mode, args.W, args.H);
-			uint tickCount = sim.simulate();
-			sim.destroy();
-			ALLEGRO_DISPLAY *display = show(tickCount);
-			if (display != NULL)
+			if (user_data.mode == 1)
 			{
-				al_rest(5);
-				al_destroy_display(display);
+				Simulation sim(user_data.amountOfRobots, user_data.mode, user_data.width, user_data.height);
+				uint tickCount = sim.simulate();
+				sim.destroy();
+				ALLEGRO_DISPLAY *display = show(tickCount);
+				if (display != NULL)
+				{
+					al_rest(5);
+					al_destroy_display(display);
+				}
+			}
+			else
+			{
+				ALLEGRO_DISPLAY *display = al_create_display(M2_DIS_WIDTH, M2_DIS_HEIGHT);
+				drawAxis();
+				double tickCount[10000];
+				bool listo = false;
+				for (int n = 1; !listo; n++)
+				{
+					for (uint i = 0; i < 1000; i++)
+					{
+						Simulation sim(n, user_data.mode, user_data.width, user_data.height);
+						tickCount[n - 1] += sim.simulate();
+						sim.destroy();
+					}
+					tickCount[n - 1] /= 1000.0;
+					drawHistogram(tickCount[n - 1], n);
+					if (n > 1)
+					{
+						listo = (abs(tickCount[n - 2] - tickCount[n - 1]) <= .1);
+					}
+				}
 			}
 		}
 		else
 		{
-			ALLEGRO_DISPLAY *display = al_create_display(M2_DIS_WIDTH, M2_DIS_HEIGHT);
-			drawAxis();
-			double tickCount[10000];
-			bool listo = false;
-			for (int n = 1; !listo ; n++)
-			{
-				for (int i = 0; i < 1000; i++)
-				{
-					Simulation sim(n, args.Mode, args.W, args.H);
-					tickCount[n - 1] += sim.simulate();
-					sim.destroy();
-				}
-				tickCount[n - 1] /= 1000.0;
-				drawHistogram(tickCount[n - 1], n);
-				if (n > 1)
-				{
-					listo = (abs(tickCount[n - 2] - tickCount[n - 1]) <= .1);
-				}
-			}
+			cout << "La informacion no fue ingresada de la manera esperada.\n";
+			how_to_use();
+
+			al_rest(10.0);
 		}
 	}
 	else

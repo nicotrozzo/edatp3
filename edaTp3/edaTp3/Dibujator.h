@@ -18,8 +18,7 @@ class Dibujator
 	errorType error;
 	void initializeAllegro();
 public:
-	Dibujator(uint h, uint w, uint nRobots, string mode);
-	void draw(tpos pos);
+	Dibujator(uint h, uint w, uint nRobots, uint mode);
 	void drawTile(double x, double y, bool state);
 	void drawRobot(tpos pos, double angle);
 	errorType getError();

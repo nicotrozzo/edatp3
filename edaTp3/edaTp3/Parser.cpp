@@ -1,7 +1,7 @@
 #include "Header.h"
 
 
-int parseCmdLine(int argc, const char *argv[], pCallback p, void * userData)
+int parseCmdLine(int argc, char *argv[], pCallback p, void * userData)
 {
 	int result = 0;
 	int i;
@@ -30,7 +30,7 @@ int parseCmdLine(int argc, const char *argv[], pCallback p, void * userData)
 	return result;
 }
 
-int parseCallback(const char * key, const char * value, void *user_data) {
+int parseCallback( char * key, char * value, void *user_data) {
 	userData *pUserData = (userData*)user_data;
 	int result = 0;
 	if (!(strcmp(key, "-Robots")))
@@ -57,7 +57,7 @@ int parseCallback(const char * key, const char * value, void *user_data) {
 }
 
 void how_to_use(void) {
-	printf("ingresar de la forma: \n \t\t -Robots... - Mode... -Height... -Width... \n");
-	printf("Si usted eligio el modo 1, las opciones son las siguientes:\n \t\t -Robots -Height -Width \n");
-	printf("Si usted eliigio el modo 2, las opciones son las siguientes:\n \t\t -Height -Width \n");
+	cout << "ingresar de la forma: \n \t\t -Robots... - Mode... -Height... -Width... \n";
+	cout << "Si usted eligio el modo 1, las opciones son las siguientes:\n \t\t -Robots -Height -Width \n";
+	cout << "Si usted eliigio el modo 2, las opciones son las siguientes:\n \t\t -Height -Width \n";
 }

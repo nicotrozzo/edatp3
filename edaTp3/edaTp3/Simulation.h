@@ -11,7 +11,7 @@
 class Simulation
 {
 	uint tickCount;
-	string mode;
+	uint mode;
 	uint robotCount;
 	Robot *robots;
 	Piso p;
@@ -19,8 +19,8 @@ class Simulation
 	errorType err;
 	void step();
 public:
-	Simulation(uint nRobotos, int mod, uint w, uint h);
-	string getMode();
+	Simulation(uint nRobotos, uint mod, uint w, uint h);
+	uint getMode();
 	uint simulate();
 	uint getTickCount();
 	errorType getError();

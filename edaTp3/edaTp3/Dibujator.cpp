@@ -8,14 +8,14 @@
 #define SUCIO true
 #define SCALE 0.5
 
-Dibujator::Dibujator(uint h, uint w, uint nRobots, string mode)
+Dibujator::Dibujator(uint h, uint w, uint nRobots, uint mode)
 {
 	Hcount = h;
 	Wcount = w;
 	robotCount = nRobots;
 	error.errNum = NO_ERROR;
 	setUnit();
-	if (mode == "Mode 1")	//si esta en el modo 2 no necesita cargar los bitmaps
+	if (mode == 1)	//si esta en el modo 2 no necesita cargar los bitmaps
 	{
 		initializeAllegro();
 	}

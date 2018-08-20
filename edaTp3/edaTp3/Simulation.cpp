@@ -3,7 +3,7 @@
 
 #define REST .3
 
-Simulation::Simulation(uint nRobots, string mod, uint w, uint h) :p(h, w), d(h,w,nRobots,mod)
+Simulation::Simulation(uint nRobots, uint mod, uint w, uint h) : p(h, w), d(h, w, nRobots, mod)   //cambie string mod por uint mod
 {
 	robots = new Robot[nRobots];
 	robotCount = nRobots;
@@ -14,9 +14,9 @@ Simulation::Simulation(uint nRobots, string mod, uint w, uint h) :p(h, w), d(h,w
 	}
 	tickCount = 0;
 	err.errNum = NO_ERROR;
-	if( ((d.getError()).errNum == NO_ERROR) && ((p.getError()).errNum == NO_ERROR) )
+	if (((d.getError()).errNum == NO_ERROR) && ((p.getError()).errNum == NO_ERROR))
 	{
-		if (mode == "Mode 1")	//dibuja el estado inicial
+		if (mode == 1)	//dibuja el estado inicial
 		{
 			al_clear_to_color(al_map_rgb(0, 0, 0)); //display arranca en negro
 			for (uint i = 0; i < p.getWidth(); i++)
@@ -24,7 +24,7 @@ Simulation::Simulation(uint nRobots, string mod, uint w, uint h) :p(h, w), d(h,w
 				for (uint j = 0; j < p.getHeight(); j++)
 				{
 					d.drawTile(i, j, p.isDirty(i, j));
-	al_flip_display();
+					al_flip_display();
 				}
 			}
 			for (uint i = 0; i < robotCount; i++)
@@ -52,7 +52,7 @@ Simulation::Simulation(uint nRobots, string mod, uint w, uint h) :p(h, w), d(h,w
 	}
 }
 
-string Simulation::getMode()
+uint Simulation::getMode()
 {
 	return mode;
 }
@@ -72,7 +72,7 @@ uint Simulation::simulate()
 	while (!p.isFloorClean())
 	{
 		step();
-		if (mode == "Mode 1")	//si esta en el modo 1, dibuja la situacion
+		if (mode == 1)	//si esta en el modo 1, dibuja la situacion
 		{
 			for (uint i = 0 ; i < p.getWidth(); i++)	//dibuja todas las baldosas
 			{
