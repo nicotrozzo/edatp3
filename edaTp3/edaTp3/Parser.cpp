@@ -36,9 +36,9 @@ int parseCallback( char * key, char * value, void *user_data) {
 	}
 	else if (!(caseInsensitive(key, "-height")))
 	{
-		if (atof(value) <= HLIMIT)
+		if (atoi(value) <= HLIMIT)
 		{
-			pUserData->height = atof(value);
+			pUserData->height = atoi(value);
 			result = 1;
 		}
 		else
@@ -48,9 +48,9 @@ int parseCallback( char * key, char * value, void *user_data) {
 	}
 	else if (!(caseInsensitive(key, "-width")))
 	{
-		if (atof(value) <= WLIMIT)
+		if (atoi(value) <= WLIMIT)
 		{
-			pUserData->width = atof(value);
+			pUserData->width = atoi(value);
 			result = 1;
 		}
 		else
@@ -70,8 +70,8 @@ void how_to_use(int result) {
 	if (result == 0)
 	{
 		cout << "ingresar de la forma: \n \t\t -Robots... - Mode... -Height... -Width... \n";
-		cout << "Si usted eligio el modo 1, las opciones son las siguientes:\n \t\t -Robots -Height -Width \n";
-		cout << "Si usted eliigio el modo 2, las opciones son las siguientes:\n \t\t -Height -Width \n";
+		cout << "Si usted eligio el modo 1, las opciones son las siguientes:\n \t\t -Robots (mayor que 0) -Height (entre 1 y 70) -Width (entre 1 y 100)\n";
+		cout << "Si usted eliigio el modo 2, las opciones son las siguientes:\n \t\t -Height (entre 1 y 70) -Width (entre 1 y 100) \n";
 	}
 	else if (result == -1)
 	{
@@ -83,7 +83,7 @@ void how_to_use(int result) {
 	}
 	else if (result == -3)
 	{
-		cout << "Recuerde que no puede ingresar parametros";
+		cout << "Recuerde que no puedeN ingresar parametros";
 	}
 }
 

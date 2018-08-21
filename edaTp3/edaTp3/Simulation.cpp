@@ -11,7 +11,7 @@ Simulation::Simulation(uint nRobots, uint mod, uint w, uint h) : p(h, w), d(h, w
 	for (uint i = 0; i < nRobots; i++)
 	{
 		robots[i].initRobot(h, w);
-		al_rest(1);
+		//al_rest(1);
 	}
 	tickCount = 0;
 	err.errNum = NO_ERROR;
@@ -25,13 +25,12 @@ Simulation::Simulation(uint nRobots, uint mod, uint w, uint h) : p(h, w), d(h, w
 				for (uint j = 0; j < p.getHeight(); j++)
 				{
 					d.drawTile(i, j, p.isDirty(i, j));
-					al_flip_display();
 				}
 			}
-			for (uint i = 0; i < robotCount; i++)
+			/*for (uint i = 0; i < robotCount; i++)
 			{
 				d.drawRobot(robots[i].getRobotPos(), robots[i].getAngle());	//si pinta mandamos angulo para rotar
-			}
+			}*/
 			al_flip_display();
 			al_rest(REST);
 		}
@@ -87,7 +86,7 @@ uint Simulation::simulate()
 				d.drawRobot(robots[i].getRobotPos(),robots[i].getAngle());	//si pinta mandamos angulo para rotar
 			}
 			al_flip_display();
-			al_rest(REST);
+			//al_rest(REST);
 		}
 	}
 	return tickCount;

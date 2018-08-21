@@ -12,15 +12,15 @@
 
 #define DIS_X 800
 #define DIS_Y 100
-#define M2_DIS_HEIGHT 300
-#define M2_DIS_WIDTH 300
+#define M2_DIS_HEIGHT 700
+#define M2_DIS_WIDTH 700
 #define INIT_SEPARATION 10
-#define SCALE 2
-#define FONT_SIZE 20
+#define SCALE .2
+#define FONT_SIZE 25
 #define HLIMIT 100
 #define WLIMIT 70
 
-using namespace ::std;
+using namespace std;
 
 typedef unsigned int uint;
 
@@ -30,6 +30,7 @@ typedef struct
 {
 	alError_t error;
 	string errDetail;
+	ALLEGRO_FONT *font;
 }alData_t;
 
 typedef struct {
@@ -46,7 +47,8 @@ int parseCmdLine(int argc, char *argv[], pCallback p, void * userData);
 int parseCallback( char * key, char * value, void *user_data);
 void how_to_use(int result);
 void drawAxis(void);
-void drawHistogram(double tickCount, int n);
+void drawHistogram(double tickCount, int n, ALLEGRO_FONT* font);
+
 bool init_allegro(alData_t *al_data);
 int caseInsensitive(const char * str1, const char * str2);
 void str_to_lwr(char * str);
